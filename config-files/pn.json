@@ -1,0 +1,14 @@
+[
+    {
+      "EndpointUrl": "opc.tcp://172.23.32.1:53530/OPCUA/SimulationServer",
+      "UseSecurity": false,
+      "OpcNodes": [
+        {
+          "Id": "ns=3;s=Sinusoid"
+        },
+        {
+          "Id": "ns=3;s=Square"
+        }
+      ]
+    }
+  ]
