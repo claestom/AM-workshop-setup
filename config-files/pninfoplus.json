@@ -1,0 +1,16 @@
+[
+    {
+      "EndpointUrl": "opc.tcp://hostname/InfoPlus21/OpcUa/Server",
+      "UseSecurity": true,
+      "EndpointSecurityMode": "SignAndEncrypt",
+      "EndpointSecurityPolicy": "Basic128Rsa15", 
+      "OpcNodes": [
+        {
+          "Id": "ns=3;s=Sinusoid"
+        },
+        {
+          "Id": "ns=3;s=Square"
+        }
+      ]
+    }
+  ]

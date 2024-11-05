@@ -37,6 +37,27 @@ This configuration file sets up a Docker container with specific command-line ar
 
 More information about how to compose the file: https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#specifying-container-create-options-in-the-azure-portal
 
+### How to connect to and read data from the InfoPlus.21 UA Server
+
+The example steps below show how to manually read a value from the 
+InfoPlus.21 UA Server. The example uses the OPC UA Foundation’s Sample 
+Client application. 
+
+Connect to the InfoPlus.21 UA Server 
+
+    a. Launch the OPC UA Sample Client. 
+    b. Click Discovery, then Servers. 
+    c. Specify the host (computer) name of the InfoPlus.21 server, then click Discover. 
+    d. Select AspenTech InfoPlus.21 OPC UA Server, then click OK.
+    e. Click Connect. 
+    f.From the Server Configuration dialog box, specify the protocol as opc.tcp, security mode as SignAndEncrypt, and security policy as Basic128Rsa15, then click OK. 
+
+This would like the following config file: [pninfoplus.json](./config-files/pninfoplus.json).
+
+    g. In the Open Session dialog, specify the authentication mode as UserName, then specify a Windows username and password. The username should be fully qualified, such as corp\myname. 
+    h. Click OK, and then if prompted, accept the server’s certificate. 
+    i. If you get the error BadSecureChannelClosed, it is because we have not yet configured the InfoPlus.21 server to trust our client’s certificate.  Follow the steps in “xxx”, xxx to add the UA Sample Client’s certificate to the list of trusted ones.
+
 ### Resources
 
 [User-guide.pdf](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf)
