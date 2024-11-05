@@ -1,0 +1,16 @@
+{
+    "Cmd": [
+      "--pf=/appdata/publishednodes.json",
+      "--aa"
+    ],
+    "HostConfig": {
+      "Binds": [
+        "/iiotedge:/appdata"
+      ],
+      "HostConfig": {
+        "ExtraHosts": [
+          "DESKTOP-D585412:192.168.129.17"
+        ]
+      }
+    }
+  }
