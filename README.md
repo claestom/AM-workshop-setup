@@ -4,7 +4,7 @@ This repo consists of the configuration settings for the IoT Edge &amp; OPC UA P
 
 The architecture will look as follows.
 
-![Architecture Diagram](./imgs/image.png)
+![Architecture Diagram](./imgs/architecture.png)
 
 * [pn.json](./config-files/pn.json)
 
