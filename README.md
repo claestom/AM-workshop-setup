@@ -10,8 +10,6 @@ The architecture will look as follows.
 
 Refer to following [config setup](./config-files/set-up-rpi.md).
 
-* [pn.json](./config-files/pn.json)
-
 ### Deploy Azure IoT Edge on the Raspberry PI
 
 Refer to following documentation for different OS:
@@ -23,6 +21,8 @@ Refer to following documentation for different OS:
 https://azure.github.io/Industrial-IoT/opc-publisher/#deploy-opc-publisher-from-azure-marketplace
 
 ### Config files
+
+* [pn.json](./config-files/pn.json)
 
 This file consists of the "published nodes" of the OPC UA Server. 
 
