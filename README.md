@@ -20,6 +20,10 @@ Refer to following documentation for different OS:
 
 https://azure.github.io/Industrial-IoT/opc-publisher/#deploy-opc-publisher-from-azure-marketplace
 
+### Download an OPC UA Server simulator
+
+Recommended: [ProSys OPC UA Server Simulator](https://prosysopc.com/products/opc-ua-simulation-server/)
+
 ### Config files
 
 * [pn.json](./config-files/pn.json)
