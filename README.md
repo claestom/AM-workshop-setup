@@ -1,4 +1,4 @@
-# AM workshop setup: IoT Edge - OPC UA Publisher - IoT Hub
+# AM workshop setup: IoT Edge (on Rpi) - OPC UA Publisher - IoT Hub
 
 This repo consists of the configuration settings for the IoT Edge &amp; OPC UA Publisher workshop for Arcelor Mittal.
 
@@ -6,7 +6,23 @@ The architecture will look as follows.
 
 ![Architecture Diagram](./imgs/architecture.png)
 
+### How to configure the Raspberry PI
+
+Refer to following [config setup](./config-files/set-up-rpi.md).
+
 * [pn.json](./config-files/pn.json)
+
+### Deploy Azure IoT Edge on the Raspberry PI
+
+Refer to following documentation for different OS:
+* Linux: [link](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-symmetric?view=iotedge-1.5&tabs=azure-portal%2Cubuntu)
+* Windows: [link](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-on-windows-symmetric?view=iotedge-1.5&tabs=azure-portal)
+
+### Deploy the OPC UA Publisher module
+
+https://azure.github.io/Industrial-IoT/opc-publisher/#deploy-opc-publisher-from-azure-marketplace
+
+### Config files
 
 This file consists of the "published nodes" of the OPC UA Server. 
 
