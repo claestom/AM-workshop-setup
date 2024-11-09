@@ -98,9 +98,17 @@ This would like the following config file: [pninfoplus.json](./config-files/pnin
     h. Click OK, and then if prompted, accept the server’s certificate. 
     i. If you get the error BadSecureChannelClosed, it is because we have not yet configured the InfoPlus.21 server to trust our client’s certificate.  Follow the steps in “xxx”, xxx to add the UA Sample Client’s certificate to the list of trusted ones.
 
+ When connecting to a UA server, the UA client decides what message security level and policy to use, though some UA servers may not support all levels and policies. During the process of establishing a communication session, the client and server exchange certificates. 
+
+If a certificate is rejected by either the client or the server, a communication session is not established. Certificates may be rejected by either party if the certificate is not found in a trusted store, expired, from another computer, or other reasons. The failed trust relationship must be resolved to allow a successful connection. See Configuring Security Certificates below to learn about ways to resolve certificates. 
+
+*When attempting to connect to an InfoPlus.21 UA Server, if either Sign or SignAndEncrypt is used, the server will reject the certificate upon the first connection attempt. Usually this is indicated by error 6 2 concepts code BadSecureChannelClosed. A copy of the client-side certificate will be stored in the InfoPlus.21 Rejected Certificates folder at path*: ``` %CommonApplicationData%\OPCFoundation\CertificateStores\RejectedCertificates ```
+
 ### Resources
 
-[User-guide.pdf](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf)
+[Aspentech user-guide](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf)
 
 [Microsoft OPC UA Publisher](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md)
+
+[Azure IoT Edge documentation](./user-guide/azure-iot-edge-iotedge-1.5.pdf)
 
