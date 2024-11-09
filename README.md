@@ -1,4 +1,4 @@
-# AM workshop setup: IoT Edge (on Rpi) - OPC UA Publisher - IoT Hub
+# AM workshop setup: IoT Edge (on Raspberry PI) - OPC UA Publisher - IoT Hub
 
 This repo consists of the configuration settings for the IoT Edge &amp; OPC UA Publisher workshop for Arcelor Mittal.
 
