@@ -47,7 +47,7 @@ The `containerconfig.json` file contains the following fields:
 
 * Cmd: Specifies the command and arguments to run inside the container.
     * --pf=/appdata/publishednodes.json: Specifies the path to a configuration file (publishednodes.json) within the container.
-    * --aa: Another argument passed to the command, the specific purpose of which depends on the application running in the container
+    * --aa: Another argument passed to the command, the specific purpose of whicha depends on the application running in the container
 
 * HostConfig: Contains configuration options for the Docker host.
     * Binds: Specifies a bind mount, mapping a directory on the host (/iiotedge) to a directory inside the container (/appdata).
@@ -56,6 +56,26 @@ The `containerconfig.json` file contains the following fields:
 This configuration file sets up a Docker container with specific command-line arguments, mounts a host directory to a directory inside the container, and adds a custom hostname-to-IP mapping in the container's /etc/hosts file.
 
 More information about how to compose the file: https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#specifying-container-create-options-in-the-azure-portal
+
+### Introduction to Aspen InfoPlus.21 OPC UA Server
+
+User guide can be found [here](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf).
+
+Architecture looks as follows:
+
+![Aspentech Architecture](./imgs/aspentech.png)
+
+* It is based on the UA standard as published by the OPC Foundation. 
+* It leverages the UA SDK developed by the OPC Foundation. 
+* It delivers a subset of the complete functionality proposed by the UA  standard. 
+* It allows a client application to discover, connect, read, and write data to/from InfoPlus.21. 
+* It registers itself into the standard UA Discovery Server, thus allowing it to easily be discovered by client applications. 
+* It supports event-driven subscriptions to data changes. 
+* It supports reading historical data from InfoPlus.21. 
+
+The InfoPlus.21 OPC UA Server is designed to support three levels of message security: 
+
+![security level](./imgs/aspentech-sec.png)
 
 ### How to connect to and read data from the InfoPlus.21 UA Server
 
