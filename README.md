@@ -81,7 +81,7 @@ User guide can be found [here](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf).
 
 Architecture looks as follows:
 
-![Aspentech Architecture](./imgs/aspen-arch.png)
+![Aspentech Architecture](./imgs/aspentech-arch.png)
 
 * It is based on the UA standard as published by the OPC Foundation. 
 * It leverages the UA SDK developed by the OPC Foundation. 
