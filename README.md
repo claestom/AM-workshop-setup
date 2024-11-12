@@ -29,6 +29,7 @@ Azure IoT Edge for Linux on Windows works by running a Linux virtual machine on 
 More information in the following [documentation](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-for-linux-on-windows?view=iotedge-1.5).
 
 Useful resources:
+* [Virtual Switch creation on Windows Server](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-create-virtual-switch?view=iotedge-1.5)
 * [Configure nested virualization on WS Server / Windows 10](https://techcommunity.microsoft.com/blog/itopstalkblog/how-to-setup-nested-virtualization-for-azure-vmvhd/1115338)
 * [Azure VMs that support nested virtualization](https://www.markou.me/2020/05/which-azure-vm-sizes-support-nested-virtualization/)
 * [Shared folders between Guest OS & CLB-Mariner Linux EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-share-windows-folder-to-vm?view=iotedge-1.5)
