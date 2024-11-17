@@ -68,13 +68,41 @@ Note: symmetric keys can be used for testing purposes. However, in production, t
 
 ### OPC UA Publisher module
 
+Before jumping into the technical implementation, please refer to following document to get familiar with the OPC UA Publisher we are about the deploy: [how OPC UA Publisher works](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#how-opc-publisher-works).
+
 First, we need to create a configuration file on the client where the IoT Edge is deployed. We will call this file: `publishednodes.json`.
 
-This workshop was focusing on the Aspen InfoPlus.21 OPC UA Server. If you are using a different OPC UA Server, please skip following section and move to "[Configuration file for other OPC UA Server](#configuration-file-for-other-opc-ua-server)".
+I would recommend to create this file locally using notepad or another text editor application.
 
-#### Configuration file for Aspen InfoPlus.21 OPC UA Server
+More information on how to configure this file is explained in following [article](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#configuration-via-configuration-file).
 
-#### Configuration file for other OPC UA Server
+The simplest way to configure OPC Publisher is via a file. A basic configuration file looks like this:
+
+```
+[
+  {
+    "EndpointUrl": "opc.tcp://testserver:62541/Quickstarts/ReferenceServer",
+    "UseSecurity": true,
+    "OpcNodes": [
+      {
+        "Id": "i=2258",
+        "OpcSamplingInterval": 2000,
+        "OpcPublishingInterval": 5000,
+        "DisplayName": "Current time"
+      }
+    ]
+  }
+]
+```
+Once the configuration file is finished, we move over to the client side, where the IoT Edge runtime will be deployed. 
+
+Please run following commands there:
+
+If using a Linux system:
+
+If using a Windows system:
+
+
 
 * [Deploy OPC Publisher using the Azure Portal](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#deploy-opc-publisher-using-the-azure-portal)
 * [Deploy OPC Publisher using Azure CLI](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#deploy-opc-publisher-using-azure-cli)
