@@ -57,7 +57,7 @@ The latter two, using Azure Bastion is more secure given the fact that the VM do
 * [Virtual Switch creation on Windows Server](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-create-virtual-switch?view=iotedge-1.5)
 * [Configure nested virualization on WS Server / Windows 10](https://techcommunity.microsoft.com/blog/itopstalkblog/how-to-setup-nested-virtualization-for-azure-vmvhd/1115338)
 * [Azure VMs that support nested virtualization](https://www.markou.me/2020/05/which-azure-vm-sizes-support-nested-virtualization/)
-* [Shared folders between Guest OS & CLB-Mariner Linux EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-share-windows-folder-to-vm?view=iotedge-1.5)
+* [Shared folders between Guest OS & CLB-Mariner Linux EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-share-windows-folder-to-vm?view=iotedge-1.5) (optional)
 
 #### Azure IoT Edge (option Linux OS)
 
@@ -94,20 +94,86 @@ The simplest way to configure OPC Publisher is via a file. A basic configuration
   }
 ]
 ```
+For the Aspentech historian an example can be found [here](./config-files/pninfoplus.json).
+
 Once the configuration file is finished, we move over to the client side, where the IoT Edge runtime will be deployed. 
 
 Please run following commands there:
+Connect to the EFLOW runtime
+```
+Connect-EflowVm
+```
+Create a new folder called *iiotedge* and next a new file for the configuration file we created above
+```
+mkdir iiotedge
+cd iiotedge
+sudo nano publishednodes.json
+```
+Copy paste the configuration file create a few steps above from the local text edtior 
+```
+Ctrl + O
+Enter
+Ctrl + X
+```
+Now that the client has the required configuration file in the system, we can proceed with installing the OPC UA Publisher module.
 
-If using a Linux system:
+Follow the first 6 steps to [deploy OPC Publisher using the Azure Portal](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#deploy-opc-publisher-using-the-azure-portal).
 
-If using a Windows system:
+Next: in the Container Create Options we need to add the followinging file:
+```
+{
+  "HostConfig": {
+    "Binds": [
+      "/home/iotedge-user/iiotedge:/appdata"
+    ]
+  },
+  "Hostname": "publisher",
+  "Cmd": [
+    "publisher",
+    "--pf=/appdata/publishednodes.json",
+    "--aa"
+  ]
+}
+```
+Select Add and then Next to continue to the routes section.
+
+Next, in the routes tab, add the following:
+```
+FROM /messages/modules/publisher/* INTO $upstream
+```
+Click Review + Create.
+
+You can check whether the module is running correctly:
+* Azure: 
+
+    1) Go to your IoT Hub instance
+    2) IoT Edge
+    3) Click on the relevant IoT Edge device ID
+    4) See if the state for the publisher module == running
+* IoT Edge (client side)
+
+  1) ``` Connect-EflowVm ```
+  2) ```sudo iotedge list```
+  3) See if the state for the publisher module == running
+
+Verify whether the data is being transmitted to Azure IoT Hub
+
+First, validate whether the OPC UA Publisher is working properly: ``` sudo iotedge logs publisher ```
+
+Next, verify whether the data is ingested into Azure IoT Hub
+
+*  Using Azure IoT Hub Explorer
+
+    An application you case use to analyze the telemetry being send by the devices to IoT Hub. More information in following documentation on how to install & get started: [Azure IoT Explorer](https://learn.microsoft.com/en-us/azure/iot/howto-use-iot-explorer)
+
+* Azure IoT Hub
+
+    1) Go to your IoT Hub instance
+    2) In the overview page, look at the dashboard "Device to cloud messages". 
 
 
 
-* [Deploy OPC Publisher using the Azure Portal](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#deploy-opc-publisher-using-the-azure-portal)
-* [Deploy OPC Publisher using Azure CLI](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#deploy-opc-publisher-using-azure-cli)
 
-More information about the schema & the parameters to be set can be find [here](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#configuration-schema).
 
 
 
