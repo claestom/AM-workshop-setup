@@ -28,7 +28,7 @@ Note: If you are using a virtual machine to deploy the IoT Edge runtime, ensure 
 
 Note: make sure to select an OS that is supported by [Azure IoT Edge](https://learn.microsoft.com/en-us/azure/iot-edge/support?view=iotedge-1.5#operating-systems). An example would be the following OS: 
 
-![rpi image](imgs\rpi-os.png)
+![rpi image](./imgs/rpi-os.png)
 
 #### Connect to Raspberry PI
 
