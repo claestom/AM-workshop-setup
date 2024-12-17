@@ -1,133 +1,179 @@
-# AM workshop setup: IoT Edge (on Raspberry PI) - OPC UA Publisher - IoT Hub
+# OPC UA deployment on Azure IoT Edge
 
-This repo consists of the configuration settings for the IoT Edge &amp; OPC UA Publisher workshop for Arcelor Mittal.
-
-The architecture will look as follows.
+## Architecture
 
 ![Architecture Diagram](./imgs/architecture.png)
 
-### How to configure the Raspberry PI
+*Components being used in the architecture:*
 
-Refer to following [config setup](./config-files/set-up-rpi.md).
+* (Optional) [Raspberry PI Model 4 (4GB ram)](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
+* (Optional) Azure Virtual Machine (Linux or Windows)
+* [Azure IoT Edge](https://learn.microsoft.com/en-us/azure/iot-edge/?view=iotedge-1.5)
+* [Azure IoT Edge - EFLOW deployment](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-for-linux-on-windows?view=iotedge-1.5)
+* [Azure IoT Hub](https://azure.microsoft.com/en-us/products/iot-hub/?msockid=39e7bea7d6b36b3c3f08ad6bd7086a7a)
 
-### Deploy Azure IoT Edge on the Raspberry PI
+Note: If you are using a virtual machine to deploy the IoT Edge runtime, ensure that the operating system supports virtualization. A list of supported operating systems can be found [here](https://learn.microsoft.com/en-us/azure/iot-edge/support?view=iotedge-1.5#operating-systems). 
+### Hardware requirements
 
-Refer to following documentation for different OS:
-* Linux: [link](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-symmetric?view=iotedge-1.5&tabs=azure-portal%2Cubuntu)
-* Windows: [link](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-on-windows-symmetric?view=iotedge-1.5&tabs=azure-portal)
+* [System requirements](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-for-linux-on-windows?view=iotedge-1.5#prerequisites)
+* [Operating systems that are supported](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-for-linux-on-windows-support?view=iotedge-1.5#operating-systems)
 
-### Deploy Azure IoT Edge on the Raspberry PI
+## Tutorial
 
-For Azure IoT Edge to run on Windows, we will be using the EFLOW, which stand for Azure IoT Edge for Linux on Windows:
+### (Optional) Raspberry PI
 
-Azure IoT Edge for Linux on Windows (EFLOW) allows you to run containerized Linux workloads alongside Windows applications in Windows deployments. Businesses that rely on Windows to power their edge devices and solutions can now take advantage of the cloud-native analytics solutions being built in Linux.
+#### Set up Raspberry PI 
 
-Azure IoT Edge for Linux on Windows works by running a Linux virtual machine on a Windows device. The Linux virtual machine comes pre-installed with the Azure IoT Edge runtime. Any Azure IoT Edge modules deployed to the device run inside the virtual machine. Meanwhile, Windows applications running on the Windows host device can communicate with the modules running in the Linux virtual machine.
+[Getting started with Raspberry PI](https://www.raspberrypi.com/documentation/computers/getting-started.html)
 
-![EFLOW](./imgs/EFLOW.png)
+Note: make sure to select an OS that is supported by [Azure IoT Edge](https://learn.microsoft.com/en-us/azure/iot-edge/support?view=iotedge-1.5#operating-systems). An example would be the following OS: 
 
-More information in the following [documentation](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-for-linux-on-windows?view=iotedge-1.5).
+![rpi image](imgs\rpi-os.png)
 
-Useful resources:
+#### Connect to Raspberry PI
+
+* [Using remote access](https://www.raspberrypi.com/documentation/computers/remote-access.html) - I would recommend this option
+* [Using RDP](https://tutorials-raspberrypi.com/raspberry-pi-remote-desktop-connection/)
+
+### (Optional) Azure Virtual Machine
+
+* [Connect using RDP](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/connect-rdp)
+* [Connect using SSH](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/connect-ssh?tabs=azurecli)
+* [Connect using RDP with Azure Bastion](https://learn.microsoft.com/en-us/azure/bastion/bastion-connect-vm-rdp-windows)
+* [Connect using SSH with Azure Bastion](https://learn.microsoft.com/en-us/azure/bastion/bastion-connect-vm-ssh-windows)
+
+The latter two, using Azure Bastion is more secure given the fact that the VM doesn't require a client, agent, or additional software. More information [here](https://learn.microsoft.com/en-us/azure/bastion/bastion-overview).
+
+### Azure IoT Edge
+
+#### Deploy EFLOW (Azure IoT Edge for Linux on Windows)
+
+Make sure to carefully follow the instructions in [device requirements](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-on-windows-symmetric?view=iotedge-1.5&tabs=azure-portal#device-requirements):
+
+* [Create and provision an IoT Edge for Linux on Windows device using symmetric keys](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-on-windows-symmetric?view=iotedge-1.5&tabs=azure-portal)
+* [Create and provision an IoT Edge for Linux on Windows device using X.509 certificates](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-on-windows-x509?view=iotedge-1.5&tabs=azure-portal)
+
+*Useful resources:*
 * [Virtual Switch creation on Windows Server](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-create-virtual-switch?view=iotedge-1.5)
 * [Configure nested virualization on WS Server / Windows 10](https://techcommunity.microsoft.com/blog/itopstalkblog/how-to-setup-nested-virtualization-for-azure-vmvhd/1115338)
 * [Azure VMs that support nested virtualization](https://www.markou.me/2020/05/which-azure-vm-sizes-support-nested-virtualization/)
-* [Shared folders between Guest OS & CLB-Mariner Linux EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-share-windows-folder-to-vm?view=iotedge-1.5)
+* [Shared folders between Guest OS & CLB-Mariner Linux EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-share-windows-folder-to-vm?view=iotedge-1.5) (optional)
+
+#### Azure IoT Edge (option Linux OS)
+
+* [Create and provision an IoT Edge device on Linux using symmetric keys](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-symmetric?view=iotedge-1.5&tabs=azure-portal%2Cubuntu)
+* [Create and provision an IoT Edge device on Linux using X.509 certificates](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-x509?view=iotedge-1.5&tabs=azure-portal%2Cubuntu)
+
+Note: symmetric keys can be used for testing purposes. However, in production, the use of X509 certs is recommended.
+
+### OPC UA Publisher module
+
+Before jumping into the technical implementation, please refer to following document to get familiar with the OPC UA Publisher we are about the deploy: [how OPC UA Publisher works](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#how-opc-publisher-works).
+
+First, we need to create a configuration file on the client where the IoT Edge is deployed. We will call this file: `publishednodes.json`.
+
+I would recommend to create this file locally using notepad or another text editor application.
+
+More information on how to configure this file is explained in following [article](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#configuration-via-configuration-file).
+
+The simplest way to configure OPC Publisher is via a file. A basic configuration file looks like this:
+
+```
+[
+  {
+    "EndpointUrl": "opc.tcp://testserver:62541/Quickstarts/ReferenceServer",
+    "UseSecurity": true,
+    "OpcNodes": [
+      {
+        "Id": "i=2258",
+        "OpcSamplingInterval": 2000,
+        "OpcPublishingInterval": 5000,
+        "DisplayName": "Current time"
+      }
+    ]
+  }
+]
+```
+For the Aspentech historian an example can be found [here](./config-files/pninfoplus.json).
+
+Once the configuration file is finished, we move over to the client side, where the IoT Edge runtime will be deployed. 
+
+Please run following commands there:
+Connect to the EFLOW runtime
+```
+Connect-EflowVm
+```
+Create a new folder called *iiotedge* and next a new file for the configuration file we created above
+```
+mkdir iiotedge
+cd iiotedge
+sudo nano publishednodes.json
+```
+Copy paste the configuration file create a few steps above from the local text edtior 
+```
+Ctrl + O
+Enter
+Ctrl + X
+```
+Now that the client has the required configuration file in the system, we can proceed with installing the OPC UA Publisher module.
+
+Follow the first 6 steps to [deploy OPC Publisher using the Azure Portal](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#deploy-opc-publisher-using-the-azure-portal).
+
+Next: in the Container Create Options we need to add the followinging file:
+```
+{
+  "HostConfig": {
+    "Binds": [
+      "/home/iotedge-user/iiotedge:/appdata"
+    ]
+  },
+  "Hostname": "publisher",
+  "Cmd": [
+    "publisher",
+    "--pf=/appdata/publishednodes.json",
+    "--aa"
+  ]
+}
+```
+Select Add and then Next to continue to the routes section.
+
+Next, in the routes tab, add the following:
+```
+FROM /messages/modules/publisher/* INTO $upstream
+```
+Click Review + Create.
+
+You can check whether the module is running correctly:
+* Azure: 
+
+    1) Go to your IoT Hub instance
+    2) IoT Edge
+    3) Click on the relevant IoT Edge device ID
+    4) See if the state for the publisher module == running
+* IoT Edge (client side)
+
+  1) ``` Connect-EflowVm ```
+  2) ```sudo iotedge list```
+  3) See if the state for the publisher module == running
+
+Verify whether the data is being transmitted to Azure IoT Hub
+
+First, validate whether the OPC UA Publisher is working properly: ``` sudo iotedge logs publisher ```
+
+Next, verify whether the data is ingested into Azure IoT Hub
+
+*  Using Azure IoT Hub Explorer
+
+    An application you case use to analyze the telemetry being send by the devices to IoT Hub. More information in following documentation on how to install & get started: [Azure IoT Explorer](https://learn.microsoft.com/en-us/azure/iot/howto-use-iot-explorer)
+
+* Azure IoT Hub
+
+    1) Go to your IoT Hub instance
+    2) In the overview page, look at the dashboard "Device to cloud messages". 
 
 
-### Deploy the OPC UA Publisher module
 
-https://azure.github.io/Industrial-IoT/opc-publisher/#deploy-opc-publisher-from-azure-marketplace
 
-### Download an OPC UA Server simulator
 
-Recommended: [ProSys OPC UA Server Simulator](https://prosysopc.com/products/opc-ua-simulation-server/)
 
-### Config files
-
-* [pn.json](./config-files/pn.json)
-
-This file consists of the "published nodes" of the OPC UA Server. 
-
-This file is basically an array, meaning that this json file can target multiple OPC UA Servers. In other words, there is a many-to-one relationship available between OPC UA Servers & the IoT Edge instance.
-
-More information about the schema & the parameters to be set can be find [here](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#configuration-schema).
-
-For the POC of AM: the OPC UA Server endpoint can be found here: *The base endpoint URL of the Aspen InfoPlus.21 UA server is specified in the 
-OPC UA Configuration file tsk_opcua_server.opcua.config.xml.*
-
-Example: opc.tcp://localhost:63500/InfoPlus21/OpcUa/Server
-
-* [containerconfig.json](./config-files/containerconfig.json)
-
-This file defines the configuration settings for a Docker container used in the IoT Edge & OPC UA Publisher setup.
-
-The `containerconfig.json` file contains the following fields:
-
-* Cmd: Specifies the command and arguments to run inside the container.
-    * --pf=/appdata/publishednodes.json: Specifies the path to a configuration file (publishednodes.json) within the container.
-    * --aa: Another argument passed to the command, the specific purpose of whicha depends on the application running in the container
-
-* HostConfig: Contains configuration options for the Docker host.
-    * Binds: Specifies a bind mount, mapping a directory on the host (/iiotedge) to a directory inside the container (/appdata).
-    * ExtraHosts: Adds an entry to the container's /etc/hosts file, mapping the hostname DESKTOP-D585412 to the IP address 192.168.129.17.
-
-This configuration file sets up a Docker container with specific command-line arguments, mounts a host directory to a directory inside the container, and adds a custom hostname-to-IP mapping in the container's /etc/hosts file.
-
-More information about how to compose the file: https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md#specifying-container-create-options-in-the-azure-portal
-
-### Introduction to Aspen InfoPlus.21 OPC UA Server
-
-User guide can be found [here](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf).
-
-Architecture looks as follows:
-
-![Aspentech Architecture](./imgs/aspentech-arch.png)
-
-* It is based on the UA standard as published by the OPC Foundation. 
-* It leverages the UA SDK developed by the OPC Foundation. 
-* It delivers a subset of the complete functionality proposed by the UA  standard. 
-* It allows a client application to discover, connect, read, and write data to/from InfoPlus.21. 
-* It registers itself into the standard UA Discovery Server, thus allowing it to easily be discovered by client applications. 
-* It supports event-driven subscriptions to data changes. 
-* It supports reading historical data from InfoPlus.21. 
-
-The InfoPlus.21 OPC UA Server is designed to support three levels of message security: 
-
-![security level](./imgs/aspentech-sec.png)
-
-### How to connect to and read data from the InfoPlus.21 UA Server
-
-The example steps below show how to manually read a value from the 
-InfoPlus.21 UA Server. The example uses the OPC UA Foundation’s Sample 
-Client application. 
-
-Connect to the InfoPlus.21 UA Server 
-
-    a. Launch the OPC UA Sample Client. 
-    b. Click Discovery, then Servers. 
-    c. Specify the host (computer) name of the InfoPlus.21 server, then click Discover. 
-    d. Select AspenTech InfoPlus.21 OPC UA Server, then click OK.
-    e. Click Connect. 
-    f.From the Server Configuration dialog box, specify the protocol as opc.tcp, security mode as SignAndEncrypt, and security policy as Basic128Rsa15, then click OK. 
-
-This would like the following config file: [pninfoplus.json](./config-files/pninfoplus.json).
-
-    g. In the Open Session dialog, specify the authentication mode as UserName, then specify a Windows username and password. The username should be fully qualified, such as corp\myname. 
-    h. Click OK, and then if prompted, accept the server’s certificate. 
-    i. If you get the error BadSecureChannelClosed, it is because we have not yet configured the InfoPlus.21 server to trust our client’s certificate.  Follow the steps in “xxx”, xxx to add the UA Sample Client’s certificate to the list of trusted ones.
-
- When connecting to a UA server, the UA client decides what message security level and policy to use, though some UA servers may not support all levels and policies. During the process of establishing a communication session, the client and server exchange certificates. 
-
-If a certificate is rejected by either the client or the server, a communication session is not established. Certificates may be rejected by either party if the certificate is not found in a trusted store, expired, from another computer, or other reasons. The failed trust relationship must be resolved to allow a successful connection. See Configuring Security Certificates below to learn about ways to resolve certificates. 
-
-*When attempting to connect to an InfoPlus.21 UA Server, if either Sign or SignAndEncrypt is used, the server will reject the certificate upon the first connection attempt. Usually this is indicated by error 6 2 concepts code BadSecureChannelClosed. A copy of the client-side certificate will be stored in the InfoPlus.21 Rejected Certificates folder at path*: ``` %CommonApplicationData%\OPCFoundation\CertificateStores\RejectedCertificates ```
-
-### Resources
-
-[Aspentech user-guide](./user-guide/AspenIP21OPCUAServer-V14_3-Usr.pdf)
-
-[Microsoft OPC UA Publisher](https://github.com/Azure/Industrial-IoT/blob/main/docs/opc-publisher/readme.md)
-
-[Azure IoT Edge documentation](./user-guide/azure-iot-edge-iotedge-1.5.pdf)
 
