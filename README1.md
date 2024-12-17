@@ -34,6 +34,16 @@ Useful resources:
 * [Azure VMs that support nested virtualization](https://www.markou.me/2020/05/which-azure-vm-sizes-support-nested-virtualization/)
 * [Shared folders between Guest OS & CLB-Mariner Linux EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-share-windows-folder-to-vm?view=iotedge-1.5)
 
+### Private Link / Express route support
+
+In Industrial IoT (IIoT) scenarios, you may want to use IoT Edge and completely isolate your network from the internet traffic. You can achieve this requirement by using various services in Azure. The following diagram is an example reference architecture for a factory network scenario.
+
+![private link architecture](./imgs/privatelink-arch.png)
+
+Useful resources:
+* [Using Private Link with IoT Edge](https://learn.microsoft.com/en-us/azure/iot-edge/using-private-link?view=iotedge-1.5)
+* [Change the DNS Server for the EFLOW VM](https://learn.microsoft.com/en-us/azure/iot-edge/reference-iot-edge-for-linux-on-windows-functions?view=iotedge-1.5#set-eflowvmdnsservers)
+* [How to set up Private Link with IoT Edge & IoT Hub](https://kevinsaye.wordpress.com/2020/09/30/using-azure-private-link-and-private-endpoints-to-secure-azure-iot-traffic/)
 
 ### Deploy the OPC UA Publisher module
 
